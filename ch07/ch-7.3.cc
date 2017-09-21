@@ -65,6 +65,17 @@ private:
     vector<Screen> screens{Screen(24, 80, ' ')};
 };
 
+class X;
+class Y;
+
+class X {
+public:
+    Y* y;
+};
+
+class Y {
+    X x;
+};
 
 int main() {
     Screen sc1(3, 10, '#');
