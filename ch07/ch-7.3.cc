@@ -3,8 +3,19 @@
 using std::vector;
 
 class Screen;
+class Window_mgr;
+
+
+class Window_mgr {
+public:
+    using ScreenIndex = vector<Screen>::size_type;
+    void clear(ScreenIndex);
+private:
+    vector<Screen> screens;
+};
 
 class Screen {
+    friend void Window_mgr::clear(ScreenIndex);
 public:
     typedef string::size_type pos;
     Screen() = default;
@@ -59,11 +70,9 @@ Screen &Screen::set(pos r, pos w, char c) {
     return *this;
 }
 
-
-class Window_mgr {
-private:
-    vector<Screen> screens{Screen(24, 80, ' ')};
-};
+void Window_mgr::clear(ScreenIndex i) {
+    screens[i].contents = string(screens[i].height * screens[i].width, ' ');
+}
 
 class X;
 class Y;
