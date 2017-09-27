@@ -3,6 +3,7 @@
 
 #include<iostream>
 #include<string>
+#include<vector>
 
 using std::cin;
 using std::cout;
@@ -11,5 +12,7 @@ using std::string;
 
 using std::ostream;
 using std::istream;
+
+using std::vector;
 
 #endif
