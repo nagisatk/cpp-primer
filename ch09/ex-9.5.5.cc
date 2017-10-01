@@ -68,6 +68,7 @@ Date::Date(string s) {
     pos = s.find_first_not_of(numbers, at);
     date = stoi(s.substr(at, pos));
     year = stoi(s.substr(pos + 1));
+    // for test
     output();
     cout << endl;
 }
