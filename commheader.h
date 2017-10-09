@@ -15,4 +15,9 @@ using std::istream;
 
 using std::vector;
 
+#include<map>
+#include<set>
+using std::map;
+using std::set;
+
 #endif
