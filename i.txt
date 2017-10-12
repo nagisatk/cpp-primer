@@ -1,0 +1,5 @@
+This html book is an offline copy
+of the website with unnecessary UI elements stripped out.
+Choose this if you just want to
+access cppreference.com
+via a browser while without internet connection. 
