@@ -1,12 +1,14 @@
 #include "../commheader.h"
 
-#ifndef _CP5_EX_13_5__
-#define _CP5_EX_13_5__
+#ifndef _CP5_CH_13_5__
+#define _CP5_CH_13_5__
 
 #include<memory>
 #include<utility>
 using std::allocator;
 using std::pair;
+using std::uninitialized_copy;
+#include<algorithm>
 
 // 类vector类内存分配策略的简化实现
 using std::initializer_list;
@@ -83,8 +85,6 @@ void StrVec::resize(size_t n, const string &s) {
 }
 // Exercise 13.39 over
 
-using std::uninitialized_copy;
-
 pair<string*, string*>
 StrVec::alloc_n_copy(const string *b, const string *e) {
     // 分配空间保存给定范围内的元素
@@ -93,7 +93,6 @@ StrVec::alloc_n_copy(const string *b, const string *e) {
     return { data, uninitialized_copy(b, e, data) };
 }
 
-#include<algorithm>
 void StrVec::free() {
     // 不能传递给deallocate一个空指针，如果elements为0，那就什么都不做
     if(elements) {
