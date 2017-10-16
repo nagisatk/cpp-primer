@@ -15,6 +15,8 @@ public:
     String(const char *);
     String(const String&);
     String &operator=(const String&);
+    String(String&&) noexcept;
+    String &operator=(String&&) noexcept;
     ~String() { free(); }
     size_t size() const { return end - s; }
     size_t length() const { return end - s - 1; }
@@ -27,45 +29,5 @@ private:
     char *s;
     char *end;
 };
-
-allocator<char> String::alloc;
-String::String(const char *s) {
-    char *ss = const_cast<char*>(s);
-    while(*ss)
-        ++ss;
-    range_init(s, ++ss);
-}
-
-String::String(const String &rhs) {
-    range_init(rhs.s, rhs.end);
-    cout << "copy-constructor" << endl;
-}
-String &String::operator=(const String &rhs) {
-    auto ns = alloc_n_copy(rhs.s, rhs.end);
-    free();
-    s = ns.first;
-    end = ns.second;
-    cout << "copy-assignment" << endl;
-    return *this;
-}
-
-void String::range_init(const char *b, const char *e) {
-    auto data = alloc_n_copy(b, e);
-    s = data.first;
-    end = data.second;
-}
-
-pair<char*, char*>
-String::alloc_n_copy(const char *b, const char *e) {
-    auto data = alloc.allocate(e - b);
-    return { data, uninitialized_copy(b, e, data) };
-}
-
-void String::free() {
-    if(s) {
-        std::for_each(s, end, [this](char &c) { alloc.destroy(&c); });
-        alloc.deallocate(s, end - s);
-    }
-}
 
 #endif
