@@ -39,7 +39,4 @@ void test_show_all2() {
 int main() {
     test_show_all();
     test_show_all2();
-    cout << ~0ull << endl;
-    cout << sizeof(double) << endl;
-    cout << sizeof(~0ull) << endl;
 }

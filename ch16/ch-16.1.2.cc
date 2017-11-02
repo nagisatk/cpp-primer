@@ -15,6 +15,9 @@ public:
     // constructor
     blob(): data(make_shared<vector<T>>()) { }
     blob(initializer_list<T> il): data(make_shared<vector<T>>(il)) { }
+    template <typename It>
+    // Exercise 16.24
+    blob(It a, It b): data(make_shared<vector<T>>(a, b)) { }
     // element num of the blob
     size_type size() const { return data->size(); }
     bool empty() const { return data->empty(); }
@@ -57,4 +60,8 @@ T& blob<T>::operator[](size_type i) {
 int main() {
     blob<int> b1 = { 1, 2, 3, 5 };
     cout << b1.back() << endl;
+    // Exercise 16.24
+    vector<double> dvec = { 1.1, 2.2, 3.3, 4.4 };
+    blob<double> b2(dvec.begin(), dvec.end());
+    cout << b2.back() << endl;
 }
