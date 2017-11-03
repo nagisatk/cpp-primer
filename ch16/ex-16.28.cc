@@ -121,26 +121,38 @@ private:
     }
 };
 
-// template <typename T>
-// class shared_ptr {
-// public:
-//     shared_ptr(): refcnt(0), ptr(nullptr) {}
-//     shared_ptr(T *t): refcnt(1), ptr(t) { cout << "this->refcnt is :" << refcnt << endl; }
-//     shared_ptr(shared_ptr &s): 
-//     shared_ptr operator=() {
-//         ++refcnt;
-//         return *this;
-//     }
-//     ~shared_ptr() {
-//         if (--refcnt == 0) {
-//             delete ptr;
-//         }
-//     }
-// private:
-//     size_t refcnt = 0;
-//     T* ptr;
-// };
+template <typename T>
+class unique_pointer {
+public:
+    unique_pointer(): pointer(nullptr) { }
+    explicit unique_pointer(T *t): pointer(t) { }
+    unique_pointer(const unique_pointer &p) = delete;
+    unique_pointer& operator=(const unique_pointer &p) = delete;
+    ~unique_pointer() {
+        if (pointer)
+            delete pointer;
+    }
+    T* release() {
+        T *p = pointer;
+        pointer = nullptr;
+        return p;
+    }
+    void reset(T *t = nullptr) {
+        if(t != pointer)
+            delete pointer;
+        pointer = t;
+    }
+    T& operator*() {
+        return *pointer;
+    }
+    T& operator*() const {
+        return *pointer;
+    }
+private:
+    T *pointer;
+};
 
 int main() {
     shared_pointer<int> i(new int(0));
+    unique_pointer<double> d(new double(.0));
 }
