@@ -63,7 +63,7 @@ int main() {
     h(ci);
     cout << "h(i * ci):" << endl;
     h(i * ci);
-    // 函数声明为const int& 时，表明可以传递给它任何类型的参数，T的类型推断结果也不会是const的。
+    // 函数声明为const T& 时，表明可以传递给它任何类型的参数，T的类型推断结果也不会是const的。
     // T为int， val的类型为const int&
     cout << "f(i):" << endl;
     f(i);
